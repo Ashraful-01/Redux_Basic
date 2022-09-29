@@ -20,6 +20,12 @@ const rootReducer = (state = initState, action) => {
             num: state.num + action.value
         }
     }
+    if (action.type === 'DEC_NUM') {
+        return {
+            ...state,
+            num: state.num - 1
+        }
+    }
     return state;
 }
 //store 
@@ -27,17 +33,28 @@ const rootReducer = (state = initState, action) => {
 const store = redux.createStore(rootReducer);
 console.log(store.getState());
 
+//store subscription 
+store.subscribe(() => {
+    console.log("[Subscribe]", store.getState());
+})
+
 //dicpatching Action 
 
 // console.log(store);
 //when i define type it must be all upperCase 
 store.dispatch({
-    type: 'INC_NUM'
-})
-
-store.dispatch({
     type: 'ADD_NUM',
     value: 34
 })
 
-console.log(store.getState());
+
+store.dispatch({
+    type: 'INC_NUM'
+})
+
+store.dispatch({
+    type: 'DEC_NUM'
+})
+
+
+
